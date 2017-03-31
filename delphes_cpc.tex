@@ -161,6 +161,13 @@ $\pi$    & 0.34$\pm$0.17    & 0.25$\pm$0.14   & 99.39$\pm$0.22  \\
 \end{center}
 \fi
 
+In Delphes, two sets of 4-vector are provided with PFA, which are named as {\it{particle flow tracks}} and {\it{particle flow towers}}. For each particle flow object, $E_{ECAL}$, $E_{HCAL}$ and $E_{ECAL, trk}$, $E_{HCAL, trk}$ are essential for the particle flow reconstruction. $E_{ECAL}$, $E_{HCAL}$ are the total energy deposited in electromagnetic calorimeter and hadronic calorimeter, $E_{ECAL, trk}$, $E_{HCAL, trk}$ are also the total energy deposited in the calorimeters, but from the charged particle whose track has been reconstructed. Then a quantity $E^{eflow}_{tower}$ is defined as
+\begin{eqnarray}
+&\Delta_{ECAL}=E_{ECAL}-E_{ECAL, trk}, \quad\Delta_{HCAL}=E_{HCAL}-E_{HCAL, trk}\\
+&E^{eflow}_{tower}=\mathrm{max}(0,\Delta_{ECAL})+\mathrm{max}(0,\Delta_{HCAL})
+\end{eqnarray}
+So for a neutron particle like photon, the particle flow tower can be simply created with the energy $E_{ECAL}$ or $E_{HCAL}$. Meanwhile, for a charged particle,  if $E_{E,HCAL}\le E_{E,HCAL,trk}$, only a particle flow track will be reconstructed with the energy $E_{E,HCAL,trk}$; if $E_{E,HCAL}>E_{E,HCAL,trk}$, a particle flow track with $E_{E,HCAL,trk}$ and a particle flow tower with $E^{eflow}_{tower}$ will be reconstructed simultaneously.
+
 In order to get same performance of jet-clustering, $e^+e^-~k_t$ algorithm is also used for the results of fast simulation. The exclusive mode of fast jet is used and  all input particles are forced into fixed number of jets without any $y_{ij}$ or $P_t$ cuts, which can be applied at analysis stage.  
 
 \section{Validation with full simulation\label{sec:validation}}
