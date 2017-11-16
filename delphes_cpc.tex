@@ -19,7 +19,7 @@
 
 \renewcommand{\mathstrut}{\protect\vphantom{\hat{0123456789}}}
 
-\linespread{2} % comment this after all the revision
+%\linespread{2} % comment this after all the revision
 \begin{document}
 
 
@@ -30,31 +30,39 @@
 %\footnotetext[0]{Received 14 March 2009}
 
 
-\title{Fast simulation of the CEPC conceptual detector with  {\textsc{Delphes}} and its validation
+\title{Fast simulation of the CEPC detector with {\textsc{Delphes}} and its validation
 \thanks{The study was partially supported by the CAS/SAFEA International Partnership Program for Creative Research Teams?and funding from CAS and IHEP for the Thousand Talent and Hundred Talent programs, as well as grants from the State Key Laboratory of Nuclear Electronics and Particle Detectors.}}
 
 \author{%
       Xin. Mo$^{1)}$%
-\quad Gang. Li$^{1;2)}$\email{li.gang@ihep.ac.cn}%
-\quad Manqi. Ruan$^{1;3)}$\email{manqi.ruan@ihep.ac.cn}%
-\quad Xinchou. Lou$^{1,2)}$%
+\quad Cheng Chen$^{2}$
+\quad Gang Li$^{1)}$\email{li.gang@ihep.ac.cn}%
+\quad Manqi Ruan$^{1)}$\email{manqi.ruan@ihep.ac.cn}%
+\quad Qiang Li$^{2}$
+\quad Xinchou Lou$^{1,2)}$%
 }
 \maketitle
 
 
 \address{%
 $^1$ Institute of High Energy Physics, Chinese Academy of Sciences, Beijing 100049, China\\
-$^2$ University of Texas at Dallas, Richardson, TX 75080-3021, USA
+$^2$ Peking University, Beijing, China\\ 
+$^3$ University of Texas at Dallas, Richardson, TX 75080-3021, USA
 }
 
 
 \begin{abstract}
-In this paper, the {\textsc{Delphes}~} is used to simulate the detector at the Circular Electron-Positron Collider (CEPC). The geometry and performance of the CEPC detector are presented. The fast simulation in the {\textsc{Delphes}~} framework is validated with  a series of  benchmark processes, including $e^+e^- \to \mu\mu H$ and $H$ to inclusive decay,  $e^+e^- \to q\bar{q}H$ and $H$ to invisible,  $e^+e^- \to \nu\bar{\nu}$ and $H$ decaying via double W bosons, and $e^+e^- \to q\bar{q}H,~ H \to q\bar{q}$. The comparisons between {\textsc{Delphes}~} and the full simulation, which is based on Geant4 \& Marlin, shows that {\textsc{Dephes}} simulates the CEPC detector well.
+In this paper, the {\textsc{Delphes}~} is used to simulate the detector at the Circular Electron-Positron Collider (CEPC).
+The geometry and performance of the CEPC detector are presented. The fast simulation of CEPC in the {\textsc{Delphes}~} framework
+is validated with  a series of benchmark processes.
+The comparisons between {\textsc{Delphes}~} and the full simulation, which is based on Geant4 \& Marlin,
+show that {\textsc{Dephes}} simulates the CEPC detector well.
+The differences of physics analysis between hadron and lepton collider are also stressed.  
 \end{abstract}
 
 
 \begin{keyword}
-CEPC, {\textsc{Delphes}~}, Fast simulation
+CEPC, {\textsc{Delphes}~}, fast simulation
 \end{keyword}
 
 \begin{pacs}
@@ -70,32 +78,65 @@ of Modern Physics of the Chinese Academy of Sciences and IOP Publishing Ltd}%
 %\begin{multicols}{2}
 
 
-
 \section{Introduction}\label{sec:intro}
+
 CEPC\cite{ref:cepc_det, ref:cepc_acc} is a next generation electron-positron collider proposed by Chinese scientists.
-The machine is expected to collide electron and positron beams at the center-of-mass energy of 240- 250 GeV to maximize the Higgs production cross section of the $e^+e^- \to ZH$ process, with an instantaneous luminosity of $2\times10^{34}$ cm$^{-2} s^{-1}$.
-CEPC is designed to deliver a total of 5 ab$^{-1}$ integrated luminosity to two detectors in 10 years, over $10^6$ Higgs events will be produced.
-The large statistics with clean backgrounds will enable CEPC to perform Higgs precision measurements,
+The machine is expected to collide electron and positron beams at the center-of-mass energy of 240 - 250 GeV
+to maximize the Higgs production cross section of the $e^+e^- \to ZH$ process, with an instantaneous luminosity of $2\times10^{34}$ cm$^{-2} s^{-1}$.
+CEPC is designed to deliver a total of 5 ab$^{-1}$ integrated luminosity with two detectors in 10 years,
+over $10^6$ Higgs events will be produced. The large statistics with clean backgrounds will enable CEPC to perform Higgs precision measurements,
 Standard Model (SM) tests, and searches for potential new physical phenomena.
-In order to investigate  sensitivity to new physics, theorists would get involved and various new models would be tested. To save computing time and to simplify  the procedure of full detector simulation and reconstruction,  a dedicated fast simulation tool is highly demanded.
+In order to investigate the precison and sensitivity of the CEPC, theorists would get involved to test various new models.
+To save computing time and to simplify the procedure of full detector simulation and reconstruction,
+a dedicated fast simulation tool is highly demanded.
 
-{\textsc{Delphes}~}\cite{ref:delphes} is a fast simulation framework  developed in 2009, and the latest prime version was released in 2013, which is designed for phenomenological studies on the simulation of various detector designs.
+{\textsc{Delphes}~}\cite{ref:delphes} is a fast simulation framework developed in 2009, and the latest prime version was released in 2013,
+which is widely used for phenomenological studies on the simulation of various detector designs.
 The {\textsc{Delphes}~} framework simulates the response of a general purpose collider detector,
-whose components  are organized concentrically with a cylindrical symmetry around the beam axis. The energy and momentum are smeared according to the resolutions of detector. Eventually, all kinds of particles are reconstructed with algorithm based on PFA\cite{ref:pfa} philosophy, then clustering into jets with FastJet~\cite{ref:fastjet} .
+whose components are organized concentrically with a cylindrical symmetry around the beam axis.
+The energy and momentum are simulated according to the detector resolutions and efficiencies required by users.
+Eventually, all kinds of particles are reconstructed with algorithm based on PFA\cite{ref:pfa} philosophy,
+then clustering into jets with FastJet~\cite{ref:fastjet} .
 
-This paper is organized as following.  In Sect.{~\ref{sec:detector}}, the CEPC detector concept are introduced briefly.  Then in Sect.{~\ref{sec:simulation}}, the MC generation, full simulation and reconstruction of detector,  and data analysis of $e^+e^-$  experiment are briefly introduced. In Sect.{~\ref{sec:validation}}, some benchmark processes are chosen to the validate the simulation of  the {\textsc{Delphes}~} on CEPC by comparing the fast and full simulaitons, including  $e^+e^- \to \mu^+\mu^- H$  and Higgs $\to $inclusive, $e^+e^- \to q\bar{q} H$ with Higgs decaying into invisible, $e^+e^- \to \nu\bar{\nu} H$ with Higgs coupling to W boson pair, and $e^+e^\to ZH \to 2(q\bar{q})$. In the end the conclusion remarks are presented.
+This paper is organized as following.  In Sect.{~\ref{sec:detector}}, the CEPC detector geometry are briefly introduced.
+Then in Sect.{~\ref{sec:simulation}}, the MC generation, full simulation, and reconstruction chain are presented in detail,
+the data analysis of $e^+e^-$  experiment is also disscused as well.
+In Sect.{~\ref{sec:validation}}, a series of benchmark processes are chosen to the validate the fast simulation on CEPC
+by comparing it with full simulaiton.
+In the end the conclusion remarks are presented.
 
-\section{CEPC detector conceptual design\label{sec:detector}}
+\section{The CEPC detector concept\label{sec:detector}}
 
-The CEPC detector concept design\cite{ref:cepc_det}  takes the ILC detector, ILD\cite{ref:ilc, ref:ild},  as a reference and adopts the philosophy of PFA, which benefits from a high granularity  calorimetric system.
+The CEPC detector concept design\cite{ref:cepc_det} takes the ILC detector, ILD\cite{ref:ilc, ref:ild},
+as a reference and adopts the philosophy of PFA,
+which benefits from its precision tracking system and high granularity calorimetric system.
 
-The CEPC detector consists of three main sub-detectors and a superconducting solenoid of 3.5 T.  The three sub-detectors are, from inner to outer,  a hybrid tracking system composed of several silicon based devices and a Time Projection Chamber (TPC), a high granularity calorimetry system, and a Muon detector.
+The CEPC detector consists of three main sub-detectors and a superconducting solenoid of 3.5 T.
+The three sub-detectors are, from inner to outer,  a hybrid tracking system composed of several silicon based devices
+and a Time Projection Chamber (TPC), a high granularity calorimetry system, and a Muon detector.
 
-The hybrid tracking system has five parts.  A vertex detector (VTX), constructed with high spatial pixel sensor, is placed very close to the interaction point (IP) and  the inner radius is only 16 mm. The VTX provides very precision measurements of the IP position of tracks and events, which is used for the $b-/c-$jet flavor tagging and $\tau$-tagging.  A Silicon Inner Tracker (SIT) is just outside  and cooperating with the VTX for vertex reconstruction and flavor tagging. A set of Forward Tracking Disks (FTDs)  are placed in the forward region to increase the geometric acceptance of tracking system with coverage up to $|\cos\theta| = 0.99$.  A Silicon External Tracker (SET) and End-cap Tracking Disks (ETD) are taken as the outermost layer of whole tracker system, which provide precision position measurements of tracks entering the calorimetric system.  The TPC, with a 2.35m half-length and 1.8m outer radius, provides about 200 hits per track and 100$\mu$m resolution in $r\phi$ plane, which allow for excellent pattern recognition,  track reconstruction efficiency, and potential $dE/dx$-based particle identification.
+The hybrid tracking system has five parts. A vertex detector (VTX), constructed with high spatial resolution pixel sensor,
+is placed very close to the interaction point (IP) and  the inner radius is only 16 mm.
+The VTX provides very precision measurements of the impact parameters of tracks,
+which is used for the $b-/c-$jet flavor tagging and $\tau$-tagging.
+A Silicon Inner Tracker (SIT) is just outside and cooperating with the VTX for vertex reconstruction and flavor tagging.
+A set of Forward Tracking Disks (FTDs) are placed in the forward region
+to increase the geometric acceptance of tracking system with coverage up to $|\cos\theta| = 0.99$.
+A Silicon External Tracker (SET) and End-cap Tracking Disks (ETD) are taken as the outermost layer of whole tracker system,
+which provide precision position measurements of tracks entering the calorimetric system.
+The TPC, with a 2.35m half-length and 1.8m outer radius, provides over 200 hits per track and 100 $\mu$m resolution in $r\phi$ plane,
+which allows for excellent pattern recognition, track reconstruction efficiency, and potential $dE/dx$-based particle identification.
 
-A calorimetric system consisting of Electromagnetic Calorimeter (ECAL) and Hadron Calorimeter (HCAL) with very fine granularity is placed inside the solenoid. The system plays an essential role in the Particle-Flow Algorithm (PFA), providing excellent separation of showers from different particles and jet energy resolution of 3-4\%.
+A calorimetric system consisting of Electromagnetic Calorimeter (ECAL) and Hadron Calorimeter (HCAL)
+with very fine granularity is placed inside the solenoid.
+The system plays an essential role in the Particle-Flow Algorithm (PFA),
+providing excellent separation of showers from different particles and jet energy resolution of 3-4\%.
 
-A superconducting solenoid of 3.5 T is surrounding the calorimetry system. The return yoke is placed outside the solenoid. The CEPC muon system acts as the muon identifier, the solenoid flux return yoke and the support structure for the whole spectrometer. High muon detection efficiency, low hadron mis-identification rate, modest position resolution and large coverage are the main concerns of the design.
+A superconducting solenoid of 3.5 T is surrounding the calorimetry system.
+The return yoke is placed outside the solenoid. The CEPC muon system acts as the muon identifier,
+the solenoid flux return yoke and the support structure for the whole spectrometer.
+High muon detection efficiency, low hadron mis-identification rate,
+modest position resolution and large coverage are the main concerns of the design.
 
 %\begin{enumerate}
 %\item A vertex detector(VTX), constructed with high spatial resolution pixel sensor, the inner radius is 16mm, used for flavor-tagging and $\tau$-tagging.
@@ -111,16 +152,31 @@ A superconducting solenoid of 3.5 T is surrounding the calorimetry system. The r
 %\end{enumerate}
 
 
-\section{Monte Carlo samples, detector simulation and reconstruction, and data analysis\label{sec:simulation}}
+\section{Monte Carlo samples, detector simulation, reconstruction, and analysis\label{sec:simulation}}
 
-For the CEPC detector design and optimization, a whole set of $e^+e^- \to ZH$ signal process and Standard Model (SM) backgrounds have been generated~\cite{ref:cepccpc} with the generic Monte-Carlo generator {\sf Whizard 1.95}{~\cite{ref:whizard}}.  To simulate the detector response, a full simulation package, Mokka{~\cite{ref:mokka}}, based on Geant4{~\cite{ref:geant4}} and a fast simulation framework of  the {\textsc{Delphes}~}{~\cite{ref:delphes}} are used.  The Particle Flow Algorithm (PFA) philosophy is utilized in the reconstruction of both the full and fast simulation.
+For the CEPC detector design and optimization,
+a whole set of $e^+e^- \to ZH$ signal process and Standard Model (SM) backgrounds have been generated~\cite{ref:cepccpc}
+with the generic Monte-Carlo generator {\sf Whizard 1.95}{~\cite{ref:whizard}}.
+To simulate the detector response, a full simulation package, Mokka{~\cite{ref:mokka}},
+based on Geant4{~\cite{ref:geant4}} and a fast simulation framework of the {\textsc{Delphes}~}{~\cite{ref:delphes}} are used.  The Particle Flow Algorithm (PFA) philosophy is utilized in the reconstruction of both the full and fast simulation.
 
 %In order to validate the configuration of Delphes for the CEPC, some benchmark processes are chosen for the comparison. The first one is the Higgs inclusive decay process in the associated Z leptonic channel, which is critical for Higgs model independent measurement. The second one is the Higgs invisible decay mode, associated with hadronic Z decay channel. This channel may be sensitive to some new physics related to Higgs. The last one is Higgs decays into double W bosons, one is on-shell meanwhile the other is off-shell, and the associated Z decays into neutrinos. This benchmark channel can be valuable to constrain the SM parameters, such as HWW coupling.
 
-After full simulation,  hits in different sub-detectors are digitized properly and reconstructed with reconstruction software  Marlin{~\cite{ref:marlin}}.   A dedicated PFA, Arbor\cite{ref:arbor},  is used for particle reconstruction, and Pandora{~\cite{ref:pandora}}, an alternative one, is taken as reference. All jets are reconstructed with LCFIPlus package\cite{ref:lcfiplus}, where a $e^+e^-~k_t$ algorithm{~\cite{ref:eekt}},  often referred to also as {\sf Durham} algorithm,  is used for jet-clustering.
+After full simulation,  hits in different sub-detectors are digitized properly
+and reconstructed with reconstruction software  Marlin{~\cite{ref:marlin}}.
+A dedicated PFA, Arbor\cite{ref:arbor},  is used for particle reconstruction, and Pandora{~\cite{ref:pandora}}, an alternative one,
+is taken as reference. All jets are reconstructed with LCFIPlus package\cite{ref:lcfiplus},
+where a $e^+e^-~k_t$ algorithm{~\cite{ref:eekt}},  often referred to also as {\sf Durham} algorithm,  is used for jet-clustering.
 
-The detector model implemented in the {\textsc{Delphes}} is same as the one in full simulation but with necessary simplifications. For the charged tracks simulated with {\textsc{Delphes}}, there is a common strategy to smear their momentum. The angular resolution is assumed to be perfect, so that the smearing only applied to the transversal momentum. In practice, the resolution of their momentum is described as a Gaussian, which is parameterized function of $p_t$ and $\eta$. The values for the simulation is $\sigma=\sqrt{0.001^2+(10^{-5}p_t)^2}$ as required in CEPC pre-CDR. Then the charged tracks are  reconstructed according to the user-defined probability, which are listed in Tab.~\ref{tab:tab1}.
+The detector model implemented in the {\textsc{Delphes}} is same as the one in full simulation with necessary simplifications.
+For the charged tracks simulated with {\textsc{Delphes}}, there is a common strategy to smear their momentum.
+The angular resolution is assumed to be perfect, so that the smearing only applied to the transversal momentum.
+In practice, the resolution of their momentum is described as a Gaussian and  $\Delta(1/p_t)=a \oplus (b p_t) $,
+where $a$ and $b$ are taken same as CEPC pre-CDR.
+The reconstruction efficiency is 100\% in the detector coverage since the it is greater than 99\% for $p_t>0.1$ GeV.
+%Then the charged tracks are  reconstructed according to the user-defined probability, which are listed in Tab.~\ref{tab:tab1}.
 
+\iffalse
 \begin{center}
 \tabcaption{\label{tab:tab1}Efficiencies for charged tracks(\%)}
 \begin{tabular}{@{}*{3}{ll}}
@@ -131,14 +187,26 @@ $\eta>3.0$    & 0 		     & 0 \\
 \hline \hline
 \end{tabular}
 \end{center}
+\fi
 
 
 
+For neutral objects which mainly rely on the calorimetric system, some points should be clarified.
+The first, the fake rate for electrons, muons and photons is not implemented in the current version of {\textsc{Delphes}~};
+The second, photon conversions into electron-positron pairs are ignored neither.
+Both the true photons and electrons reaching calorimeter without a reconstructed track are considered as photon in {\textsc{Delphes}~}.
+The resolutions of photon and neutral hadrons are taken from pre-CDR, which are consistent those of full simulation.
 
-For neutral objects which mainly rely on the calorimetric system, some points should be emphasized: 1. The fake rate for electrons, muons and photons is not implemented in the current version of {\textsc{Delphes}~}; 2. The photon conversions into electron-positron pairs are ignored neither. Both the true photons and electrons reaching calorimeter without a reconstructed track are considered as photon in {\textsc{Delphes}~}.
+The overall reconstruction of particles implemented in {\textsc{Delphes}~} is mainly based on a perfect PFA.
+For the charged tracks, the reconstruction involves both the tracker system and the calorimetric system.
+Since the resolution of tracking system is better than this of calorimeter in the CEPC energy region,
+it can be convenient to use the tracking information within the tracker acceptance for estimating the charged particle momenta.
+The efficiencies could be parameterized as a function of the energy and pseudo-rapidity. But it should be beared in mind
+that the detection efficiencies of fast simulaiton is higher than full simulation by about 5\% per photon
+since the photon conversions is not simulated.   
 
-The overall reconstruction of particles implemented in {\textsc{Delphes}~} is mainly based on a perfect PFA . For the charged tracks, the reconstruction involves both the tracker system and the calorimetric system. Since the resolution of tracking system is better than this of calorimeter in the CEPC energy region, it can be convenient to use the tracking information within the tracker acceptance for estimating the charged particle momenta. The efficiencies could be parameterized as a function of the energy and pseudo-rapidity. For a preliminary study, the present parameters are listed in Tab.~\ref{tab:tab2}, which are consistent those of full simulation.
 
+\if false
 \begin{center}
 \tabcaption{\label{tab:tab2}Effciencies for identification of $\gamma$, $e^{\pm}$, $\mu^{\pm}$}
 \begin{tabular}{@{}*{3}{ll}}
@@ -151,7 +219,6 @@ $|\eta|>3.0$  & 0 		     & 0      \\
 \end{tabular}
 \end{center}
 
-\iffalse
 \begin{center}
 \tabcaption{\label{tab:arbor}Migration matrix from Arbor}
 \begin{tabular}{@{}*{3}{ll}}
@@ -165,16 +232,32 @@ $\pi$    & 0.34$\pm$0.17    & 0.25$\pm$0.14   & 99.39$\pm$0.22  \\
 \end{center}
 \fi
 
-In Delphes, two sets of 4-vector are provided with PFA, which are named as {\it{particle flow tracks}} and {\it{particle flow towers}}. For each particle flow object, $E_{ECAL}$, $E_{HCAL}$ and $E_{ECAL, trk}$, $E_{HCAL, trk}$ are essential for the particle flow reconstruction. $E_{ECAL}$, $E_{HCAL}$ are the total energy deposited in electromagnetic calorimeter and hadronic calorimeter, $E_{ECAL, trk}$, $E_{HCAL, trk}$ are also the total energy deposited in the calorimeters, but from the charged particle whose track has been reconstructed. Then a quantity $E^{eflow}_{tower}$ is defined as
+\if fasle
+In Delphes, two sets of 4-vector are provided with PFA, which are named as {\it{particle flow tracks}} and {\it{particle flow towers}}.
+For each particle flow object, $E_{ECAL}$, $E_{HCAL}$ and $E_{ECAL, trk}$, $E_{HCAL, trk}$ are essential for the particle flow reconstruction.
+$E_{ECAL}$, $E_{HCAL}$ are the total energy deposited in electromagnetic calorimeter and hadronic calorimeter,
+$E_{ECAL, trk}$, $E_{HCAL, trk}$ are also the total energy deposited in the calorimeters,
+but from the charged particle whose track has been reconstructed. Then a quantity $E^{eflow}_{tower}$ is defined as
 \begin{eqnarray}
 &\Delta_{ECAL}=E_{ECAL}-E_{ECAL, trk}, \quad\Delta_{HCAL}=E_{HCAL}-E_{HCAL, trk}\\
 &E^{eflow}_{tower}=\mathrm{max}(0,\Delta_{ECAL})+\mathrm{max}(0,\Delta_{HCAL})
 \end{eqnarray}
 So for a neutron particle like photon, the particle flow tower can be simply created with the energy $E_{ECAL}$ or $E_{HCAL}$. Meanwhile, for a charged particle,  if $E_{E,HCAL}\le E_{E,HCAL,trk}$, only a particle flow track will be reconstructed with the energy $E_{E,HCAL,trk}$; if $E_{E,HCAL}>E_{E,HCAL,trk}$, a particle flow track with $E_{E,HCAL,trk}$ and a particle flow tower with $E^{eflow}_{tower}$ will be reconstructed simultaneously.
+\fi
 
-In order to get same performance of jet-clustering, $e^+e^-~k_t$ algorithm is also used for the results of fast simulation. The exclusive mode of fast jet is used and  the set of  input particles are forced into fixed number of jets without any $y_{ij}$ or $P_t$ cuts, which can be applied at analysis stage.
+In order to get same performance of jet-clustering, $e^+e^-~k_t$ algorithm is also used in fast simulation.
+The exclusive mode of fast jet is used and the input particles are forced into fixed number of jets
+without any $y_{ij}$ or $P_t$ requirements, which can be applied at analysis stage.
 
-It is worthy to note that the analysis philosophy at $e^+e^-$ collider is different from the ones  of hadron colliders, such as the Atlas and the CMS.  $e^+e^-$ experiments have much less backgrounds than hadron ones and almost pile-up free, and usually almost all final states particles of a event are detected and used in the further analysis.   For instance, all the final physics objects will be used in the analysis of $e^+e^- \to ZH,~\mbox{with}~Z \to\mu^+\mu^-~\mbox{and}~H \to 2\mbox{Jets} $. In the event selection, the muon pair should be identified firstly with both Pid and kinematic constrains. And then, the remain particles are forced into 2 jets with exclusive mode of $e^+e^-~k_t$ jet-clustering algorithm, whose $y_{ij}$ will be used to suppress the combinatorial and other backgrounds in the further analysis procedure.
+It is worthy to note that the analysis strategy at $e^+e^-$ collider is different from the one of hadron colliders,
+such as the Atlas and the CMS.  The $e^+e^-$ experiments have much less backgrounds than hadron ones and almost pile-up free,
+and usually almost all final states particles of a event are detected and used in analysis.
+For instance, all the final physics objects will be used in the analysis of
+$e^+e^- \to ZH,~\mbox{with}~Z \to\mu^+\mu^-~\mbox{and}~H \to 2\mbox{Jets} $.
+As a consequence, the muon pair should be identified firstly with both Pid and kinematic constrains.
+Then, the remain particles are forced into 2 jets with exclusive mode of $e^+e^-~k_t$ jet-clustering algorithm.
+And any background contaminations of mis-combination can be suppressed in the final event selection with additional requirements.
+
 
 \section{Validation with full simulation\label{sec:validation}}
 
@@ -184,73 +267,59 @@ On the CEPC, the full simulation is achieved with Geant4 and several toolkits ba
 Tracks and clusters then will be interpreted as the reconstructed particles with Arbor algorithm\cite{ref:arbor}. The basic idea of Arbor algorithm is inspired by the fact that the shower spatial development  in the calorimeter follows the topology of a tree. In calorimeter, if the distance of a pair of hits is less than a predefined threshold, a connector will be established for the pair. To avoid loop connectors or multiple connectors to a single hit, a cleaning procedure is implemented to ensure that at each hit there is at most one connector which with minimum angle to a well selected direction. After all tree structure of shower completed, the shower would be merged with a track if it is charged or not.
 \fi
 
-The simulation and reconstruction in {\textsc{Delphes}~} must be validated by comparing the resolutions of all output objects to those of full simulation, as well as the efficiencies. Several  benchmark processes are selected, which cover all the physics objects of CEPC experiments, such as tracks, photons, and jets.
+The simulation and reconstruction in {\textsc{Delphes}~} must be validated by comparing the resolutions
+of all types of physics objects to those of full simulation, as well as the efficiencies.
+Several benchmark processes are selected, which cover all the physics objects of CEPC experiments, such as leptons, photons, and jets.
 
 %For this purpose, all the relevant distributions should be compared by checking the shapes, the resolutions, as well as the efficiencies.
 %In these plots, the outputs from {\textsc{Delphes}~} approximately agree with the full simulation cases, some points should be mentioned:
 
 \subsection{$e^+e^-\to \mu^+\mu^-H$}
 
-For $\mu^+\mu^-H$ channel, the di-muons come from Z boson decay, and Higgs is tagged from the recoiling side, so the invariant mass of those systems represent Z meanwhile the recoiling mass is Higgs.
-Fig.~\ref{fig:mumureco} and Fig.~\ref{fig:mumuinva} show the comparisons of invariant mass of and recoil mass against $\mu^+\mu^-$ pair.
+For $e^+e^- \to \mu^+\mu^-H$ channel, the di-muons come from Z boson decay, and Higgs is tagged from the recoiling side,
+so the invariant mass of those systems represent $Z$ meanwhile the recoiling mass Higgs.
+Fig.~\ref{fig:mumuh} shows the comparisons of invariant mass of and recoil mass against $\mu^+\mu^-$ pair between fast and full simulaitons.
+It can be found that these two are consistent very well.
 
 \begin{center}
-\includegraphics[width=0.9\linewidth]{e2e2h_reco}
-\figcaption{\label{fig:mumureco} Recoiling mass against $\mu^+\mu^-$.}
-\end{center}
-\begin{center}
-\includegraphics[width=0.9\linewidth]{e2e2h_mass}
-\figcaption{\label{fig:mumuinva} Invariant mass of $\mu^+\mu^-$.}
-\end{center}
-
-\subsection{$e^+e^-\to q\bar{q}H,~H \to\mbox{invisible}$ and $e^+e^-\to \nu\bar{\nu}H, H\to q\bar{q}$}
-
-There are only two jets in the $e^+e^-\to q\bar{q}H$, $H \to\mbox{invisible}$ and $e^+e^-\to \nu\bar{\nu}H, H\to q\bar{q}$ processes, which can be used to check the performance of jet-clustering and jet energy resolution.
-The Z mass in $q\bar{q}H$ channel is rescaled after Arbor's output, the final effect of the rescaling is a translation from right to left in $X$-axis. This operation could be considered as an calibration for the reconstruction scheme.
-
-
-\begin{center}
-\includegraphics[width=0.9\linewidth]{qqh_reco}
-\figcaption{\label{fig:qqreco} Recoiling mass against $q\bar{q}$.}
-\end{center}
-\begin{center}
-\includegraphics[width=0.9\linewidth]{qqh_mass}
-\figcaption{\label{fig:qqinva} Invariant mass of $q\bar{q}$.}
+\includegraphics[width=0.4\linewidth]{e2e2h_mass}
+\includegraphics[width=0.4\linewidth]{e2e2h_reco}
+\figcaption{\label{fig:mumuh}The invariant mass (left) of and recoil mass (right) against $\mu^+\mu^-$ distributions in $e^+e^- \to ZH$,
+  $Z \to \mu^+\mu^-$ and $H \to \mbox{inclusive}$. The dot with error bar and red histogram represent full and fast simulaiton, respectively (same in the following plots).
+}
 \end{center}
 
 \subsection{$e^+e^-\to \nu\bar{\nu}H$, $H \to WW^*$}
-In $e^+e^- \to \nu\bar{\nu}H,~H\to WW^*$,  all the visible information comes from $WW^*$ and eventually from Higgs, so in Fig.~\ref{fig:nninva} and Fig.~\ref{fig:nnreco} the invariant mass represent Higgs and recoiling side is Z.
+In $e^+e^- \to \nu\bar{\nu}H,~H\to WW^*$,
+all the visible information comes from $WW^*$ and eventually from Higgs.
+The plots in Fig.~\ref{fig:nnh} show distributions of the invariant masses of jet pairs, which represent Higgs and $Z$
+(here it includes the $WW$ fusion contribution), respectively.
 
 
 \begin{center}
-\includegraphics[width=0.9\linewidth]{nnh_reco}
-\figcaption{\label{fig:nnreco} Recoiling mass against $WW^{*}$ in $n\bar{n}h\to WW^{*}$.}
-\end{center}
-\begin{center}
-\includegraphics[width=0.9\linewidth]{nnh_mass}
-\figcaption{\label{fig:nninva} Visible mass in $n\bar{n}h\to WW^{*}$.}
+\includegraphics[width=0.4\linewidth]{nnh_mass}
+\includegraphics[width=0.4\linewidth]{nnh_reco}
+\figcaption{\label{fig:nnh} The distributions of invariant mass of and recoil mass against $WW^*$ system
+  in $e^+e^- \to \nu\bar{\nu}H$, $H\to WW^{*}$.}
 \end{center}
 
 \subsection{$e^+e^- \to ZH \to 2(q\bar{q})$}
-For the $e^+e^- \to ZH \to 2(q\bar{q})$ processes, Delphes fast simulation on the invariant mass peak of jet pair at Z mass and Higgs mass shown in Fig. 6 and Fig. 7 are both in well argeement with full simulation. In Fig.~\ref{fig:zjj} and Fig.~\ref{fig:hjj}, the scattering plots intuitively show the difference between fast simulation and full simulation.
+For the $e^+e^- \to ZH \to 2(q\bar{q})$ processes,
+the Delphes fast simulation on the invariant mass peak of jet pair at $Z$ mass and Higgs mass shown
+in Fig.~\ref{fig:zh4q} are both in well argeement with full simulation.
+In Fig.~\ref{fig:zh4qsc}, the scattering plots intuitively show the difference between fast simulation and full simulation.
 
 \begin{center}
-\includegraphics[width=0.9\linewidth]{full_vs_delphes_z}
-\figcaption{\label{fig:zjj} Invariant mass of jet pair, peaking at $Z$ mass.}
-\end{center}
-\begin{center}
-\includegraphics[width=0.9\linewidth]{full_vs_delphes_h}
-\figcaption{\label{fig:hjj} Invariant mass of jet pair, peaking at Higgs mass}
+\includegraphics[width=0.4\linewidth]{full_vs_delphes_z}
+\includegraphics[width=0.4\linewidth]{full_vs_delphes_h}
+\figcaption{\label{fig:zh4q} The invariant mass distributions of the jet pairs, which are peaking at $Z$ and Higgs masses.}
 \end{center}
 
 
 \begin{center}
-\includegraphics[width=0.9\linewidth]{Full2DCOL}
-\figcaption{\label{fig:zjj} Scattering plot of $M_{j_1,j_2}$ vs. $M_{j_3,j_4}$ for full simulation}
-\end{center}
-\begin{center}
-\includegraphics[width=0.9\linewidth]{Fast2DCOL}
-\figcaption{\label{fig:hjj} Scattering plot of $M_{j_1,j_2}$ vs. $M_{j_3,j_4}$  for fast simulation }
+\includegraphics[width=0.45\linewidth]{Full2DCOL}
+\includegraphics[width=0.45\linewidth]{Fast2DCOL}
+\figcaption{\label{fig:zh4qsc} The Scattering plots of $M_{j_1,j_2}$ vs. $M_{j_3,j_4}$ for full and fast simulaitons, respectively.}
 \end{center}
 
 \section{Conclusion\label{sec:conclusion}}
