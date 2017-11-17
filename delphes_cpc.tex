@@ -19,7 +19,7 @@
 
 \renewcommand{\mathstrut}{\protect\vphantom{\hat{0123456789}}}
 
-%\linespread{2} % comment this after all the revision
+\linespread{2} % comment this after all the revision
 \begin{document}
 
 
@@ -267,63 +267,80 @@ On the CEPC, the full simulation is achieved with Geant4 and several toolkits ba
 Tracks and clusters then will be interpreted as the reconstructed particles with Arbor algorithm\cite{ref:arbor}. The basic idea of Arbor algorithm is inspired by the fact that the shower spatial development  in the calorimeter follows the topology of a tree. In calorimeter, if the distance of a pair of hits is less than a predefined threshold, a connector will be established for the pair. To avoid loop connectors or multiple connectors to a single hit, a cleaning procedure is implemented to ensure that at each hit there is at most one connector which with minimum angle to a well selected direction. After all tree structure of shower completed, the shower would be merged with a track if it is charged or not.
 \fi
 
-The simulation and reconstruction in {\textsc{Delphes}~} must be validated by comparing the resolutions
+The fast simulation and its reconstruction in {\textsc{Delphes}~} must be validated by comparing the relative distributions
 of all types of physics objects to those of full simulation, as well as the efficiencies.
 Several benchmark processes are selected, which cover all the physics objects of CEPC experiments, such as leptons, photons, and jets.
 
-%For this purpose, all the relevant distributions should be compared by checking the shapes, the resolutions, as well as the efficiencies.
-%In these plots, the outputs from {\textsc{Delphes}~} approximately agree with the full simulation cases, some points should be mentioned:
 
 \subsection{$e^+e^-\to \mu^+\mu^-H$}
 
-For $e^+e^- \to \mu^+\mu^-H$ channel, the di-muons come from Z boson decay, and Higgs is tagged from the recoiling side,
-so the invariant mass of those systems represent $Z$ meanwhile the recoiling mass Higgs.
+The $e^+e^- \to \mu^+\mu^-H$ process is one of the most important analyes on at $e^+e^-$ Higgs factory,
+which enables the model-independent measurement of Higgs mass and production rate.
+The di-muons come from Z boson decay and Higgs is tagged from the recoiling side, since the initial four-momentum is precisely defined.
+So the study on the recoil mass distribution produces important properties of the Higgs but without detecting any Higgs decay products.
 Fig.~\ref{fig:mumuh} shows the comparisons of invariant mass of and recoil mass against $\mu^+\mu^-$ pair between fast and full simulaitons.
 It can be found that these two are consistent very well.
 
 \begin{center}
-\includegraphics[width=0.4\linewidth]{e2e2h_mass}
-\includegraphics[width=0.4\linewidth]{e2e2h_reco}
+\includegraphics[width=0.4\linewidth]{figs/e2e2h_mass}
+\includegraphics[width=0.4\linewidth]{figs/e2e2h_reco}
 \figcaption{\label{fig:mumuh}The invariant mass (left) of and recoil mass (right) against $\mu^+\mu^-$ distributions in $e^+e^- \to ZH$,
   $Z \to \mu^+\mu^-$ and $H \to \mbox{inclusive}$. The dot with error bar and red histogram represent full and fast simulaiton, respectively (same in the following plots).
 }
 \end{center}
 
 \subsection{$e^+e^-\to \nu\bar{\nu}H$, $H \to WW^*$}
-In $e^+e^- \to \nu\bar{\nu}H,~H\to WW^*$,
-all the visible information comes from $WW^*$ and eventually from Higgs.
-The plots in Fig.~\ref{fig:nnh} show distributions of the invariant masses of jet pairs, which represent Higgs and $Z$
-(here it includes the $WW$ fusion contribution), respectively.
+
+The $e^+e^- \to \nu\bar{\nu}H,~H\to WW^*$ process includes the Higgs-bremstruhlung and $WW$ fusion  contributions.
+All the visible final state particles come from $WW^*$ system except the initial state radiation photon(s) and eventually from Higgs,
+which contains all types of physics objects at the CEPC, such as jets, leptons, and photons
+and is very useful to validate the performance of fast simulation.
+The plots in Fig.~\ref{fig:nnh} show distributions of the invariant masses of and recoil mass against all visible decay products of the process,
+which represent Higgs and $Z$ (here it includes the $WW$ fusion contribution), respectively.
 
 
 \begin{center}
-\includegraphics[width=0.4\linewidth]{nnh_mass}
-\includegraphics[width=0.4\linewidth]{nnh_reco}
-\figcaption{\label{fig:nnh} The distributions of invariant mass of and recoil mass against $WW^*$ system
+\includegraphics[width=0.4\linewidth]{figs/nnh_mass}
+\includegraphics[width=0.4\linewidth]{figs/nnh_reco}
+\figcaption{\label{fig:nnh} The distributions of invariant mass(left) of and recoil mass (right) against $WW^*$ system
   in $e^+e^- \to \nu\bar{\nu}H$, $H\to WW^{*}$.}
 \end{center}
 
 \subsection{$e^+e^- \to ZH \to 2(q\bar{q})$}
-For the $e^+e^- \to ZH \to 2(q\bar{q})$ processes,
-the Delphes fast simulation on the invariant mass peak of jet pair at $Z$ mass and Higgs mass shown
-in Fig.~\ref{fig:zh4q} are both in well argeement with full simulation.
-In Fig.~\ref{fig:zh4qsc}, the scattering plots intuitively show the difference between fast simulation and full simulation.
+
+The $e^+e^- \to ZH \to 2(q\bar{q})$ process contains four jets in the final states, which is very useful
+to validate the performances related jets, such as jet-clustering, jet energy resolution, and jet pairing, etc.
+In both full and fast simulaiton, all the final states particles are forced into four jets with $ee_{kt}$ algorithm.
+The the four jets are paired by minimize $\chi^2 = (M_{j_1,j_2} - M_Z)^2 + (M_{j_3,j_4}-M_H)^2$,
+where $M_Z$ and $M_H$ are the world averages of $Z$ and Higgs boson masses. 
+The invariant mass distribution of jet pairs are shown in Fig.\ref{fig:zh4q}.
+From Fig.~\ref{fig:zh4q}, it can be seen that both of the distributions are well consistent.
+In Fig.~\ref{fig:zh4qsc}, the scattering plots of $M_{j_1,j_2}$  vs. $M_{j_3,j_4}$ 
+demonstate similar patterns in the available kinematic region.
 
 \begin{center}
-\includegraphics[width=0.4\linewidth]{full_vs_delphes_z}
-\includegraphics[width=0.4\linewidth]{full_vs_delphes_h}
+\includegraphics[width=0.4\linewidth]{figs/full_vs_delphes_z}
+\includegraphics[width=0.4\linewidth]{figs/full_vs_delphes_h}
 \figcaption{\label{fig:zh4q} The invariant mass distributions of the jet pairs, which are peaking at $Z$ and Higgs masses.}
 \end{center}
 
 
 \begin{center}
-\includegraphics[width=0.45\linewidth]{Full2DCOL}
-\includegraphics[width=0.45\linewidth]{Fast2DCOL}
+\includegraphics[width=0.45\linewidth]{figs/Full2DCOL}
+\includegraphics[width=0.45\linewidth]{figs/Fast2DCOL}
 \figcaption{\label{fig:zh4qsc} The Scattering plots of $M_{j_1,j_2}$ vs. $M_{j_3,j_4}$ for full and fast simulaitons, respectively.}
 \end{center}
 
 \section{Conclusion\label{sec:conclusion}}
-To validate the flexibility of {\textsc{Delphes}~} on CEPC, a comparison between {\textsc{Delphes}~} simulation and Geant4 \& Arbor has been studied in this paper. In the current study, the results agree very well with our previous understanding for full simulation of CEPC. It should be noted that the {\textsc{Delphes}~} parametrization has not been all covered in this study, such as those related to flavor tagging. Meanwhile, most of the parameters have to be determined with the feedback from the full simulation.
+A dedicated fast simulaiton tool is ensential for the CEPC phenomenological study.
+The fast simulaiton  frame work of the CEPC detector based {~\textsf{Delphes}~} is introduced. 
+To validate the performance, comprehensive comparisons between {\textsc{Delphes}~} fast simulaiton and full simulaiton are performed.
+The results show  well agreement between fast and full simulaitons on the CEPC.
+
+On the anlysis in high energy $e^+e^-$ experiments, it worthy to note that exclusive jet-clustering algorithm is favored in most cases,
+since it uses all final state particles and doesn't loose any available information. 
+It also should be noted that the flavor tagging module are improved based on the machine learning results of full simulaiton, 
+which is very useful since it provides more realistic experimental condiation.
 \vspace{3mm}
 
 \begin{thebibliography}{90}
