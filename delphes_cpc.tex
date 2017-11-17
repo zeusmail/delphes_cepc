@@ -75,7 +75,7 @@ Chinese Physical Society and the Institute of High Energy Physics
 of the Chinese Academy of Sciences and the Institute
 of Modern Physics of the Chinese Academy of Sciences and IOP Publishing Ltd}%
 
-%\begin{multicols}{2}
+\begin{multicols}{2}
 
 
 \section{Introduction}\label{sec:intro}
@@ -102,7 +102,7 @@ This paper is organized as following.  In Sect.{~\ref{sec:detector}}, the CEPC d
 Then in Sect.{~\ref{sec:simulation}}, the MC generation, full simulation, and reconstruction chain are presented in detail,
 the data analysis of $e^+e^-$  experiment is also disscused as well.
 In Sect.{~\ref{sec:validation}}, a series of benchmark processes are chosen to the validate the fast simulation on CEPC
-by comparing it with full simulaiton.
+by comparing it with full simulaiton. In Sect.{~\ref{b-tagging}} the improvement of flavor tagging and its usage are introduced.
 In the end the conclusion remarks are presented.
 
 \section{The CEPC detector concept\label{sec:detector}}
@@ -261,11 +261,22 @@ And any background contaminations of mis-combination can be suppressed in the fi
 
 \section{Validation with full simulation\label{sec:validation}}
 
-\iffalse
-On the CEPC, the full simulation is achieved with Geant4 and several toolkits based on the LCIO framework\cite{ref:lcio}. Geant4\cite{ref:geant4} is a general simulation package suitable from single particle phenomena study to full scale detector simulation. In the current study, the geometric structure and material information of the CEPC have been encoded as CEPC\_v1 configuration card, which is essentially for simulating the detector responds with Geant4. After the digitization, the detector responds are stored in the form of LCIO format. A user interface of LCIO, named as Marlin, is provided to read all the data from simulation and reconstruct them as hits, tracks, and clusters.
 
-Tracks and clusters then will be interpreted as the reconstructed particles with Arbor algorithm\cite{ref:arbor}. The basic idea of Arbor algorithm is inspired by the fact that the shower spatial development  in the calorimeter follows the topology of a tree. In calorimeter, if the distance of a pair of hits is less than a predefined threshold, a connector will be established for the pair. To avoid loop connectors or multiple connectors to a single hit, a cleaning procedure is implemented to ensure that at each hit there is at most one connector which with minimum angle to a well selected direction. After all tree structure of shower completed, the shower would be merged with a track if it is charged or not.
-\fi
+On the CEPC, the full simulation is achieved with Geant4 and several toolkits based on the LCIO framework\cite{ref:lcio}.
+Geant4\cite{ref:geant4} is a general simulation package suitable from single particle phenomena study to full scale detector simulation.
+In the current study, the geometric structure and material information of the CEPC have been encoded as CEPC\_v1 configuration card,
+which is essentially for simulating the detector responds with Geant4.
+After the digitization, the detector responds are stored in the form of LCIO format.
+A user interface of LCIO, named as Marlin, is provided to read all the data from simulation and reconstruct them as hits, tracks, and clusters.
+
+Tracks and clusters then will be interpreted as the reconstructed particles with Arbor algorithm\cite{ref:arbor}.
+The basic idea of Arbor algorithm is inspired by the fact that the shower spatial development  in the calorimeter follows the topology of a tree.
+In calorimeter, if the distance of a pair of hits is less than a predefined threshold, a connector will be established for the pair.
+To avoid loop connectors or multiple connectors to a single hit,
+a cleaning procedure is implemented to ensure that at each hit there is at most one connector which with minimum angle
+to a well selected direction.
+After all tree structure of shower completed, the shower would be merged with a track if it is charged or not.
+
 
 The fast simulation and its reconstruction in {\textsc{Delphes}~} must be validated by comparing the relative distributions
 of all types of physics objects to those of full simulation, as well as the efficiencies.
@@ -289,10 +300,23 @@ It can be found that these two are consistent very well.
 }
 \end{center}
 
+\subsection{$e^+e^-\to \nu\bar{\nu}H$, $H \to \gamma \gamma$}
+To validate the detection of photon in the CECP detector conceptual desigin,
+the $e^+e^- \to \nu\bar{\nu}H$, $H\to \gamma \gamma$ is taken as an example.
+There are only two isolated photon in the final state if the initial state radiation (ISR) photons are neglected.
+Fig.~\ref{fig:hgg} shows the comparison between fast and full simulation,
+it can seen that the energy resoluton of photon is well modeled by fast simulaiton.
+But it shuld be noted that the photon conversion effect is not taken into account in the fast simulation
+and its photon detection efficiency is higher than full simulation.
+\begin{center}
+\includegraphics[width=0.8\linewidth]{figs/gg_h}
+\figcaption{\label{fig:hgg}The invariant mass distribution of di-photon system. }
+\end{center}
+
 \subsection{$e^+e^-\to \nu\bar{\nu}H$, $H \to WW^*$}
 
 The $e^+e^- \to \nu\bar{\nu}H,~H\to WW^*$ process includes the Higgs-bremstruhlung and $WW$ fusion  contributions.
-All the visible final state particles come from $WW^*$ system except the initial state radiation photon(s) and eventually from Higgs,
+All the visible final state particles come from $WW^*$ system except the ISR photon(s) and eventually from Higgs,
 which contains all types of physics objects at the CEPC, such as jets, leptons, and photons
 and is very useful to validate the performance of fast simulation.
 The plots in Fig.~\ref{fig:nnh} show distributions of the invariant masses of and recoil mass against all visible decay products of the process,
@@ -331,6 +355,22 @@ demonstate similar patterns in the available kinematic region.
 \figcaption{\label{fig:zh4qsc} The Scattering plots of $M_{j_1,j_2}$ vs. $M_{j_3,j_4}$ for full and fast simulaitons, respectively.}
 \end{center}
 
+\section{Flavor tagging based machine learning\label{b-tagging}}
+In the original {\textsf{Delphes}}, the $b$-tagging is proceeding as following:
+the jet becomes a potential $b$ jet candidate if a generated $b$ is found within
+some distance $\Delta R = \sqrt{(\eta^{jet}-\eta^b)^2+(\phi^{jet}-\phi^b)^2}$ of the jet axis.
+The probability to be identified as $b$ depends on user-defined parameterizations of the $b$ efficiency.
+The user can also specify a mis-tagging efficiency parameterization.
+But in the CEPC full simulation, the package LCFIPlus~\cite{ref:lcfiplus},
+which is based on machine learning (BDT) approach, is used for $b/c$-tagging.
+In this approach, jet flavor is identified based on a series of varibles, upto 60, such as secondary vertex, jet shape, and energy, etc.
+LCFIPlus attached two real numbers, $b$ and $c$ likelynesses, to each jet according to its varibles,
+which represent the probabilities of a jet to be a $b/c$ or light jet.
+
+In order to make a unified analysis procedure for fast and full simulaiton,
+each jet in fast simulation is also attached the same two real numbers according to the flavor of the coresponding generated jet
+and two dimensional distributions of $b/c$-likelynesses of the full simulation.
+
 \section{Conclusion\label{sec:conclusion}}
 A dedicated fast simulaiton tool is ensential for the CEPC phenomenological study.
 The fast simulaiton  frame work of the CEPC detector based {~\textsf{Delphes}~} is introduced. 
@@ -340,7 +380,7 @@ The results show  well agreement between fast and full simulaitons on the CEPC.
 On the anlysis in high energy $e^+e^-$ experiments, it worthy to note that exclusive jet-clustering algorithm is favored in most cases,
 since it uses all final state particles and doesn't loose any available information. 
 It also should be noted that the flavor tagging module are improved based on the machine learning results of full simulaiton, 
-which is very useful since it provides more realistic experimental condiation.
+which is very useful since it provides a possibility to use the unified analysis procedure as full simulaiton.
 \vspace{3mm}
 
 \begin{thebibliography}{90}
@@ -353,7 +393,7 @@ which is very useful since it provides more realistic experimental condiation.
 \bibitem{ref:pfa}P. Janot, Particle Flow Event Reconstruction from LEP to LHC, Presented at Excellence in Detectors and Instrumentation Technologies workshop, CERN, 2011.
 \bibitem{ref:ilc}T. Abe et al., The International Large Detector: Letter of Intent, arXiv:1006.3396 [hep-ex].
 \bibitem{ref:ild}T. Behnke et al., The International Linear Collider Technical Design Report - Volume4:Detectors,arXiv:1306.6329 [physics.ins-det].
-\bibitem{ref:cepccpc}X. Mo, G. Li, M. Ruan, X. Lou, Physics cross sections and event generation of $e^+e^?$ annihilations at the CEPC, Chi. Phys. C, 2016, {\bf 40}: 033001.
+\bibitem{ref:cepccpc}X. Mo, G. Li, M. Ruan, X. Lou, Physics cross sections and event generation of $e^+e^-$ annihilations at the CEPC, Chi. Phys. C, 2016, {\bf 40}: 033001.
 \bibitem{ref:whizard}W. Kilian, T. Ohl, J. Reuter, Eur. Phys. J. C, 2011, {\bf 71}:1742.
 \bibitem{ref:mokka}  P.~Mora de Freitas and H.~Videau, LC-TOOL-2003-010.
 \bibitem{ref:geant4}S. Agostinelli et al., GEANT4: A simulation toolkit, Nucl. Instrum. Meth. A, 2003, {\bf 506}:250.
@@ -375,7 +415,7 @@ which is very useful since it provides more realistic experimental condiation.
 \bibitem{ref:lcio}F. Gaede, T. Behnke, N. Graf, T. Johnson, arXiv:physics/0306114.
 
 \end{thebibliography}
-%\end{multicols}
+\end{multicols}
 
 \clearpage
 
