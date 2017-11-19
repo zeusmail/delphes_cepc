@@ -177,20 +177,6 @@ where $a$ and $b$ are taken same as CEPC pre-CDR.
 The reconstruction efficiency is 100\% in the detector coverage since the it is greater than 99\% for $p_t>0.1$ GeV.
 %Then the charged tracks are  reconstructed according to the user-defined probability, which are listed in Tab.~\ref{tab:tab1}.
 
-\iffalse
-\begin{center}
-\tabcaption{\label{tab:tab1}Efficiencies for charged tracks(\%)}
-\begin{tabular}{@{}*{3}{ll}}
-\hline \hline
-		& $P_t\le0.1$ & $P_t>0.1$ \\ \hline\hline
-$\eta\le3.0$  & 0 		     & 100  \\
-$\eta>3.0$    & 0 		     & 0 \\
-\hline \hline
-\end{tabular}
-\end{center}
-\fi
-
-
 
 For neutral objects which mainly rely on the calorimetric system, some points should be clarified.
 The first, the fake rate for electrons, muons and photons is not implemented in the current version of {\textsc{Delphes}~};
@@ -207,44 +193,6 @@ that the detection efficiencies of fast simulaiton is higher than full simulatio
 since the photon conversions is not simulated.   
 
 
-\if false
-\begin{center}
-\tabcaption{\label{tab:tab2}Effciencies for identification of $\gamma$, $e^{\pm}$, $\mu^{\pm}$}
-\begin{tabular}{@{}*{3}{ll}}
-\hline \hline
-		& Energy$\le2.0$ & Energy$>2.0$ \\ \hline\hline
-$|\eta|\le1.5$  & 0 		     & 0.99 \\
-$1.5<|\eta|\le3.0$    & 0 	     & 0.99 \\
-$|\eta|>3.0$  & 0 		     & 0      \\
-\hline \hline
-\end{tabular}
-\end{center}
-
-\begin{center}
-\tabcaption{\label{tab:arbor}Migration matrix from Arbor}
-\begin{tabular}{@{}*{3}{ll}}
-\hline \hline
-\%	    & $e$ & $\mu$ & $\pi$ \\ \hline\hline
-$e$      & 99.91$\pm$0.08  & 0.08$\pm$0.03   & $<10^{-5}$ \\
-$\mu$  & $<10^{-5}$ 	      & 99.60$\pm$0.19 & 0.39$\pm$0.19 \\
-$\pi$    & 0.34$\pm$0.17    & 0.25$\pm$0.14   & 99.39$\pm$0.22  \\
-\hline \hline
-\end{tabular}
-\end{center}
-\fi
-
-\if fasle
-In Delphes, two sets of 4-vector are provided with PFA, which are named as {\it{particle flow tracks}} and {\it{particle flow towers}}.
-For each particle flow object, $E_{ECAL}$, $E_{HCAL}$ and $E_{ECAL, trk}$, $E_{HCAL, trk}$ are essential for the particle flow reconstruction.
-$E_{ECAL}$, $E_{HCAL}$ are the total energy deposited in electromagnetic calorimeter and hadronic calorimeter,
-$E_{ECAL, trk}$, $E_{HCAL, trk}$ are also the total energy deposited in the calorimeters,
-but from the charged particle whose track has been reconstructed. Then a quantity $E^{eflow}_{tower}$ is defined as
-\begin{eqnarray}
-&\Delta_{ECAL}=E_{ECAL}-E_{ECAL, trk}, \quad\Delta_{HCAL}=E_{HCAL}-E_{HCAL, trk}\\
-&E^{eflow}_{tower}=\mathrm{max}(0,\Delta_{ECAL})+\mathrm{max}(0,\Delta_{HCAL})
-\end{eqnarray}
-So for a neutron particle like photon, the particle flow tower can be simply created with the energy $E_{ECAL}$ or $E_{HCAL}$. Meanwhile, for a charged particle,  if $E_{E,HCAL}\le E_{E,HCAL,trk}$, only a particle flow track will be reconstructed with the energy $E_{E,HCAL,trk}$; if $E_{E,HCAL}>E_{E,HCAL,trk}$, a particle flow track with $E_{E,HCAL,trk}$ and a particle flow tower with $E^{eflow}_{tower}$ will be reconstructed simultaneously.
-\fi
 
 In order to get same performance of jet-clustering, $e^+e^-~k_t$ algorithm is also used in fast simulation.
 The exclusive mode of fast jet is used and the input particles are forced into fixed number of jets
@@ -294,8 +242,8 @@ Fig.~\ref{fig:mumuh} shows the comparisons of invariant mass of and recoil mass 
 It can be found that these two are consistent very well.
 
 \begin{center}
-\includegraphics[width=0.4\linewidth]{figs/e2e2h_mass}
-\includegraphics[width=0.4\linewidth]{figs/e2e2h_reco}
+\includegraphics[width=0.45\linewidth]{figs/e2e2h_mass}
+\includegraphics[width=0.45\linewidth]{figs/e2e2h_reco}
 \figcaption{\label{fig:mumuh}The invariant mass (left) of and recoil mass (right) against $\mu^+\mu^-$ distributions in $e^+e^- \to ZH$,
   $Z \to \mu^+\mu^-$ and $H \to \mbox{inclusive}$. The dot with error bar and red histogram represent full and fast simulaiton, respectively (same in the following plots).
 }
@@ -310,7 +258,7 @@ it can seen that the energy resoluton of photon is well modeled by fast simulait
 But it shuld be noted that the photon conversion effect is not taken into account in the fast simulation
 and its photon detection efficiency is higher than full simulation.
 \begin{center}
-\includegraphics[width=0.8\linewidth]{figs/gg_h}
+\includegraphics[width=0.9\linewidth]{figs/gg_h}
 \figcaption{\label{fig:hgg}The invariant mass distribution of di-photon system. }
 \end{center}
 
@@ -344,8 +292,8 @@ In Fig.~\ref{fig:zh4qsc}, the scattering plots of $M_{j_1,j_2}$  vs. $M_{j_3,j_4
 demonstate similar patterns in the available kinematic region.
 
 \begin{center}
-\includegraphics[width=0.4\linewidth]{figs/full_vs_delphes_z}
-\includegraphics[width=0.4\linewidth]{figs/full_vs_delphes_h}
+\includegraphics[width=0.45\linewidth]{figs/full_vs_delphes_z}
+\includegraphics[width=0.45\linewidth]{figs/full_vs_delphes_h}
 \figcaption{\label{fig:zh4q} The invariant mass distributions of the jet pairs, which are peaking at $Z$ and Higgs masses.}
 \end{center}
 
@@ -371,7 +319,10 @@ which represent the probabilities of a jet to be a $b/c$ and light jet ($1-btag-
 In order to make a unified analysis procedure for fast and full simulaiton,
 each jet in fast simulation is also attached the same two real numbers according to the flavor of the coresponding generated jet
 and two dimensional distributions of $b/c$-likelynesses of the full simulation.
-
+\begin{center}
+\includegraphics[width=0.95\linewidth]{figs/input}
+\figcaption{\label{fig:input} Two dimensional distributions of $b$-likelyness and $c$-likelyness for $b$, $c$ and light jets, which are from full simulation and taken as input to fast simulaiton. }
+\end{center}
 \section{Conclusion\label{sec:conclusion}}
 A dedicated fast simulaiton tool is ensential for the CEPC phenomenological study.
 The fast simulaiton  frame work of the CEPC detector based {~\textsf{Delphes}~} is introduced. 
