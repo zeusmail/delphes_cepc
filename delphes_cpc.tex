@@ -86,7 +86,7 @@ CEPC is designed to deliver a total of 5 ab$^{-1}$ integrated luminosity with tw
 which means that over $10^6$ Higgs events will be produced.
 The large statistics with clean backgrounds can enable CEPC to perform Higgs precision measurements,
 Standard Model (SM) tests, and searches for potential new physical phenomena.
-Theorists would get involved to test various new models to investigate the precisons and sensitivities of the CEPC.
+Theorists would get involved to test various new models to investigate the precisions and sensitivities of the CEPC.
 In order to save computing time and to simplify the procedure of full detector simulation and reconstruction,
 a dedicated fast simulation tool is highly demanded.
 
@@ -100,10 +100,10 @@ then clustering into jets with FastJet~\cite{ref:fastjet} .
 
 This paper is organized as following.  In Sect.{~\ref{sec:detector}}, the CEPC detector geometry are briefly introduced.
 Then in Sect.{~\ref{sec:simulation}}, the MC generation, full simulation, and reconstruction chain are presented in detail,
-the data analysis of $e^+e^-$  experiment is also disscused as well.
+the data analysis of $e^+e^-$  experiment is also discussed as well.
 In Sect.{~\ref{sec:validation}}, a series of benchmark processes are chosen to the validate the fast simulation on CEPC
-by comparing it with full simulaiton.
-In Sect.{~\ref{b-tagging}}, the improvement of flavor tagging according to full simulaiton and its usage are introduced.
+by comparing it with full simulation.
+In Sect.{~\ref{b-tagging}}, the improvement of flavor tagging according to full simulation and its usage are introduced.
 In the end the conclusion remarks are presented.
 
 \section{The CEPC detector concept\label{sec:detector}}
@@ -143,7 +143,7 @@ modest position resolution and large coverage are the main concerns of the desig
 %\item A vertex detector(VTX), constructed with high spatial resolution pixel sensor, the inner radius is 16mm, used for flavor-tagging and $\tau$-tagging.
 %\item A silicon tracker system, which contains:
 %\begin{enumerate}
-%\item[-] Silicon Inner Tracker(SIT), corperating with VTX for vertex reconstruction and flavor-tagging.
+%\item[-] Silicon Inner Tracker(SIT), cooperating with VTX for vertex reconstruction and flavor-tagging.
 %\item[-] Forward Tracking Disks(FTDs), increasing the geometric acceptance of the tracking system with coverage of $|\cos\theta|<0.99$.(But the coverage of calorimeters is merely $|\cos\theta|<0.985$, which is used in fast simulation).
 %\item[-] Silicon External Tracker(SET) and End-cap Tracking Disks(ETDs), providing more arm length of the tracker system, thus improving the track momentum resolution of charged particles.
 %\end{enumerate}
@@ -188,8 +188,8 @@ The overall reconstruction of particles implemented in {\textsc{Delphes}~} is ma
 For the charged tracks, the reconstruction involves both the tracker system and the calorimetric system.
 Since the resolution of tracking system is better than this of calorimeter in the CEPC energy region,
 it can be convenient to use the tracking information within the tracker acceptance for estimating the charged particle momenta.
-The efficiencies could be parameterized as a function of the energy and pseudo-rapidity. But it should be beared in mind
-that the detection efficiencies of fast simulaiton is higher than full simulation by about 5\% per photon
+The efficiencies could be parameterized as a function of the energy and pseudo-rapidity. But it should be borne in mind
+that the detection efficiencies of fast simulation is higher than full simulation by about 5\% per photon
 since the photon conversions is not simulated.   
 
 
@@ -234,28 +234,28 @@ Several benchmark processes are selected, which cover all the physics objects of
 
 \subsection{$e^+e^-\to \mu^+\mu^-H$}
 
-The $e^+e^- \to \mu^+\mu^-H$ process is one of the most important analyes on at $e^+e^-$ Higgs factory,
+The $e^+e^- \to \mu^+\mu^-H$ process is one of the most important analysis on at $e^+e^-$ Higgs factory,
 which enables the model-independent measurement of Higgs mass and production rate.
 The di-muons come from Z boson decay and Higgs is tagged from the recoiling side, since the initial four-momentum is precisely defined.
 So the study on the recoil mass distribution produces important properties of the Higgs but without detecting any Higgs decay products.
-Fig.~\ref{fig:mumuh} shows the comparisons of invariant mass of and recoil mass against $\mu^+\mu^-$ pair between fast and full simulaitons.
+Fig.~\ref{fig:mumuh} shows the comparisons of invariant mass of and recoil mass against $\mu^+\mu^-$ pair between fast and full simulations.
 It can be found that these two are consistent very well.
 
 \begin{center}
 \includegraphics[width=0.45\linewidth]{figs/e2e2h_mass}
 \includegraphics[width=0.45\linewidth]{figs/e2e2h_reco}
 \figcaption{\label{fig:mumuh}The invariant mass (left) of and recoil mass (right) against $\mu^+\mu^-$ distributions in $e^+e^- \to ZH$,
-  $Z \to \mu^+\mu^-$ and $H \to \mbox{inclusive}$. The dot with error bar and red histogram represent full and fast simulaiton, respectively (same in the following plots).
+  $Z \to \mu^+\mu^-$ and $H \to \mbox{inclusive}$. The dot with error bar and red histogram represent full and fast simulation, respectively (same in the following plots).
 }
 \end{center}
 
 \subsection{$e^+e^-\to \nu\bar{\nu}H$, $H \to \gamma \gamma$}
-To validate the detection of photon in the CECP detector conceptual desigin,
+To validate the detection of photon in the CEPC detector conceptual design,
 the $e^+e^- \to \nu\bar{\nu}H$, $H\to \gamma \gamma$ is taken as an example.
 There are only two isolated photon in the final state if the initial state radiation (ISR) photons are neglected.
 Fig.~\ref{fig:hgg} shows the comparison between fast and full simulation,
-it can seen that the energy resoluton of photon is well modeled by fast simulaiton.
-But it shuld be noted that the photon conversion effect is not taken into account in the fast simulation
+it can seen that the energy resolution of photon is well modeled by fast simulation.
+But it should be noted that the photon conversion effect is not taken into account in the fast simulation
 and its photon detection efficiency is higher than full simulation.
 \begin{center}
 \includegraphics[width=0.9\linewidth]{figs/gg_h}
@@ -264,7 +264,7 @@ and its photon detection efficiency is higher than full simulation.
 
 \subsection{$e^+e^-\to \nu\bar{\nu}H$, $H \to WW^*$}
 
-The $e^+e^- \to \nu\bar{\nu}H,~H\to WW^*$ process includes the Higgs-bremstruhlung and $WW$ fusion  contributions.
+The $e^+e^- \to \nu\bar{\nu}H,~H\to WW^*$ process includes the Higgs-strahlung and $WW$ fusion  contributions.
 All the visible final state particles come from $WW^*$ system except the ISR photon(s) and eventually from Higgs,
 which contains all types of physics objects at the CEPC, such as jets, leptons, and photons
 and is very useful to validate the performance of fast simulation.
@@ -283,13 +283,13 @@ which represent Higgs and $Z$ (here it includes the $WW$ fusion contribution), r
 
 The $e^+e^- \to ZH \to 2(q\bar{q})$ process contains four jets in the final states, which is very useful
 to validate the performances related jets, such as jet-clustering, jet energy resolution, and jet pairing, etc.
-In both full and fast simulaiton, all the final states particles are forced into four jets with $ee_{kt}$ algorithm.
-The the four jets are paired by minimize $\chi^2 = (M_{j_1,j_2} - M_Z)^2 + (M_{j_3,j_4}-M_H)^2$,
+In both full and fast simulation, all the final states particles are forced into four jets with $ee_{kt}$ algorithm.
+The four jets are paired by minimize $\chi^2 = (M_{j_1,j_2} - M_Z)^2 + (M_{j_3,j_4}-M_H)^2$,
 where $M_Z$ and $M_H$ are the world averages of $Z$ and Higgs boson masses. 
 The invariant mass distribution of jet pairs are shown in Fig.\ref{fig:zh4q}.
 From Fig.~\ref{fig:zh4q}, it can be seen that both of the distributions are well consistent.
 In Fig.~\ref{fig:zh4qsc}, the scattering plots of $M_{j_1,j_2}$  vs. $M_{j_3,j_4}$ 
-demonstate similar patterns in the available kinematic region.
+demonstrate similar patterns in the available kinematic region.
 
 \begin{center}
 \includegraphics[width=0.45\linewidth]{figs/full_vs_delphes_z}
@@ -301,7 +301,7 @@ demonstate similar patterns in the available kinematic region.
 \begin{center}
 \includegraphics[width=0.45\linewidth]{figs/Full2DCOL}
 \includegraphics[width=0.45\linewidth]{figs/Fast2DCOL}
-\figcaption{\label{fig:zh4qsc} The Scattering plots of $M_{j_1,j_2}$ vs. $M_{j_3,j_4}$ for full and fast simulaitons, respectively.}
+\figcaption{\label{fig:zh4qsc} The Scattering plots of $M_{j_1,j_2}$ vs. $M_{j_3,j_4}$ for full and fast simulations, respectively.}
 \end{center}
 
 \section{Flavor tagging based machine learning\label{b-tagging}}
@@ -312,27 +312,28 @@ The probability to be identified as $b$ depends on user-defined parameterization
 The user can also specify a mis-tagging efficiency parameterization.
 But in the CEPC full simulation, the package LCFIPlus~\cite{ref:lcfiplus},
 which is based on machine learning (BDT) approach, is used for $b/c$-tagging.
-In this approach, jet flavor is identified based on a series of varibles, up to 60, such as secondary vertex, jet shape and energy, etc.
+In this approach, jet flavor is identified based on a series of variables, up to 60, such as secondary vertex, jet shape and energy, etc.
 LCFIPlus attaches two real numbers, $btag$ and $ctag$, to each jet,
 which represent the probabilities of a jet to be a $b/c$ and light jet ($1-btag-ctag$).
 
-In order to make a unified analysis procedure for fast and full simulaiton,
-each jet in fast simulation is also attached the same two real numbers according to the flavor of the coresponding generated jet
-and two dimensional distributions of $b/c$-likelynesses of the full simulation.
+In order to make a unified analysis procedure for fast and full simulations,
+each jet in fast simulation is also attached the same two real numbers according to the flavor of the corresponding generated jet
+and two dimensional distributions of $b/c$-likeliness of the full simulation.
 \begin{center}
 \includegraphics[width=0.95\linewidth]{figs/input}
-\figcaption{\label{fig:input} Two dimensional distributions of $b$-likelyness and $c$-likelyness for $b$, $c$ and light jets, which are from full simulation and taken as input to fast simulaiton. }
+\figcaption{\label{fig:input} Two dimensional distributions of $b$-likeliness and $c$-likeliness for $b$, $c$ and light jets,
+which are from full simulation and taken as input to fast simulation. }
 \end{center}
 \section{Conclusion\label{sec:conclusion}}
-A dedicated fast simulaiton tool is ensential for the CEPC phenomenological study.
-The fast simulaiton  frame work of the CEPC detector based {~\textsf{Delphes}~} is introduced. 
-To validate the performance, comprehensive comparisons between {\textsc{Delphes}~} fast simulaiton and full simulaiton are performed.
-The results show  well agreement between fast and full simulaitons on the CEPC.
+A dedicated fast simulation tool is essential for the CEPC phenomenological study.
+The fast simulation  frame work of the CEPC detector based {~\textsf{Delphes}~} is introduced. 
+To validate the performance, comprehensive comparisons between {\textsc{Delphes}~} fast and full simulation are performed.
+The results show  well agreement between fast and full simulations on the CEPC.
 
-On the anlysis in high energy $e^+e^-$ experiments, it worthy to note that exclusive jet-clustering algorithm is favored in most cases,
+On the analyses in high energy $e^+e^-$ experiments, it worthy to note that exclusive jet-clustering algorithm is favored in most cases,
 since it uses all final state particles and doesn't loose any available information. 
-It also should be noted that the flavor tagging module are improved based on the machine learning results of full simulaiton, 
-which is very useful since it provides a possibility to use the unified analysis procedure as full simulaiton.
+It also should be noted that the flavor tagging module are improved based on the machine learning results of full simulation, 
+which is very useful since it provides a possibility to use the unified analysis procedure as full simulation.
 \vspace{3mm}
 
 \begin{thebibliography}{90}
